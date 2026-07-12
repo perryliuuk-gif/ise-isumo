@@ -6,22 +6,24 @@
     <title>伊勢出雲進香團 - 13天大環線自駕旅遊計畫</title>
     <style>
         :root {
-            /* 莫蘭迪/旅遊風色系 */
-            --bg-color: #F4F7F6;
+            --bg-color: #E8F0F2;
             --primary-color: #5A7B8C;
             --primary-light: #8CA8B5;
             --accent-color: #D4A373;
             --text-dark: #333333;
             --text-light: #666666;
-            --card-bg: #FFFFFF;
             --link-color: #4A90E2;
             --map-link-bg: #FFF3E0;
             --map-link-text: #E65100;
+            --card-bg: rgba(255, 255, 255, 0.85); /* 毛玻璃半透明白 */
         }
 
         body {
             font-family: 'Helvetica Neue', Helvetica, Arial, 'PingFang TC', 'Heiti TC', 'Microsoft JhengHei', sans-serif;
             background-color: var(--bg-color);
+            /* 清新可愛北極熊+鳥居+琵琶湖 SVG 背景圖騰 */
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Cg opacity='0.12' font-size='30'%3E%3Ctext x='20' y='40'%3E⛩️%3C/text%3E%3Ctext x='120' y='80'%3E🌊%3C/text%3E%3Ctext x='60' y='140'%3E🐻‍❄️%3C/text%3E%3Ctext x='160' y='180'%3E⛩️%3C/text%3E%3C/g%3E%3C/svg%3E");
+            background-attachment: fixed;
             color: var(--text-dark);
             line-height: 1.6;
             margin: 0;
@@ -29,192 +31,112 @@
         }
 
         header {
-            background-color: var(--primary-color);
+            background: linear-gradient(135deg, var(--primary-light), var(--primary-color));
             color: white;
             text-align: center;
-            padding: 2rem 1rem;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 2.5rem 1rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
-        header h1 {
-            margin: 0;
-            font-size: 1.8rem;
-            letter-spacing: 2px;
-        }
-
-        header p {
-            margin: 0.5rem 0 0;
-            font-size: 1rem;
-            opacity: 0.9;
-        }
+        header h1 { margin: 0; font-size: 2rem; letter-spacing: 2px; text-shadow: 1px 1px 3px rgba(0,0,0,0.2); }
+        header p { margin: 0.5rem 0 0; font-size: 1.1rem; opacity: 0.95; }
 
         /* 導覽列(分頁標籤) */
         nav.tabs {
             display: flex;
             overflow-x: auto;
-            background: var(--card-bg);
+            background: rgba(255, 255, 255, 0.95);
             padding: 1rem 0.5rem 0;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
             position: sticky;
             top: 0;
             z-index: 100;
-            scrollbar-width: none; /* Firefox */
+            scrollbar-width: none;
+            backdrop-filter: blur(10px);
         }
-        nav.tabs::-webkit-scrollbar {
-            display: none; /* Chrome, Safari */
-        }
+        nav.tabs::-webkit-scrollbar { display: none; }
 
         .tab-btn {
             background: none;
             border: none;
             padding: 0.8rem 1.2rem;
             margin: 0 0.25rem;
-            border-radius: 8px 8px 0 0;
+            border-radius: 12px 12px 0 0;
             font-size: 1rem;
             font-weight: bold;
             color: var(--text-light);
             cursor: pointer;
             white-space: nowrap;
             transition: all 0.3s ease;
-            border-bottom: 3px solid transparent;
+            border-bottom: 4px solid transparent;
         }
 
-        .tab-btn:hover {
-            color: var(--primary-color);
-            background-color: var(--bg-color);
-        }
-
-        .tab-btn.active {
-            color: var(--primary-color);
-            border-bottom: 3px solid var(--accent-color);
-            background-color: var(--bg-color);
-        }
+        .tab-btn:hover { color: var(--primary-color); background-color: rgba(90, 123, 140, 0.05); }
+        .tab-btn.active { color: var(--primary-color); border-bottom: 4px solid var(--accent-color); background-color: var(--card-bg); }
 
         /* 內容區 */
-        main {
-            max-width: 900px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-        }
+        main { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+        .tab-content { display: none; animation: fadeIn 0.4s ease-in-out; }
+        .tab-content.active { display: block; }
 
-        .tab-content {
-            display: none;
-            animation: fadeIn 0.4s ease-in-out;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        /* 卡片設計 */
+        /* 毛玻璃卡片設計 */
         .card {
             background: var(--card-bg);
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
-            border-left: 6px solid var(--primary-light);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.6);
+            border-radius: 16px;
+            padding: 1.8rem;
+            margin-bottom: 1.8rem;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            border-left: 8px solid var(--primary-light);
         }
 
-        .card h2 {
-            color: var(--primary-color);
-            margin-top: 0;
-            font-size: 1.4rem;
-            border-bottom: 1px dashed #eee;
-            padding-bottom: 0.5rem;
-        }
-
-        .card h3 {
-            color: var(--accent-color);
-            margin-top: 1.2rem;
-            margin-bottom: 0.5rem;
-            font-size: 1.1rem;
-        }
-
-        ul {
-            padding-left: 1.2rem;
-            margin: 0.5rem 0;
-        }
-
-        li {
-            margin-bottom: 0.6rem;
-        }
-
-        /* 超連結與地圖標籤樣式 */
-        a {
-            color: var(--link-color);
-            text-decoration: none;
-            word-break: break-all;
-        }
+        .card h2 { color: var(--primary-color); margin-top: 0; font-size: 1.5rem; border-bottom: 2px dashed #D0D8DC; padding-bottom: 0.5rem; }
+        .card h3 { color: var(--accent-color); margin-top: 1.5rem; margin-bottom: 0.5rem; font-size: 1.2rem; display: flex; align-items: center; gap: 0.5rem; }
         
-        a:hover {
-            text-decoration: underline;
-        }
+        /* 住宿資訊高亮 */
+        .hotel-info { background-color: rgba(212, 163, 115, 0.1); padding: 1rem; border-radius: 8px; margin-bottom: 1rem; border: 1px solid rgba(212, 163, 115, 0.3); }
 
+        ul { padding-left: 1.5rem; margin: 0.5rem 0; }
+        li { margin-bottom: 0.8rem; }
+        
+        a { color: var(--link-color); text-decoration: none; word-break: break-all; }
+        a:hover { text-decoration: underline; }
+
+        /* 地圖標籤樣式 */
         a.map-link {
             background-color: var(--map-link-bg);
             color: var(--map-link-text);
             font-weight: bold;
-            padding: 0.2rem 0.6rem;
+            padding: 0.3rem 0.8rem;
             border-radius: 20px;
             display: inline-block;
             margin: 0.2rem 0;
             text-decoration: none;
-            transition: transform 0.2s;
+            transition: transform 0.2s, box-shadow 0.2s;
             word-break: normal;
+            border: 1px solid #FFE0B2;
         }
-
-        a.map-link:hover {
-            transform: scale(1.05);
-            background-color: #FFE0B2;
-            text-decoration: none;
-        }
-
-        /* 表格樣式 (總覽用) */
-        .table-responsive {
-            overflow-x: auto;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            min-width: 600px;
-            font-size: 0.9rem;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 10px;
-            text-align: left;
-        }
-        th {
-            background-color: var(--primary-light);
-            color: white;
-            white-space: nowrap;
-        }
-        tr:nth-child(even) { background-color: #f9f9f9; }
+        a.map-link:hover { transform: translateY(-2px); box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-decoration: none; }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+            from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
-        /* 標籤小結 */
-        .cite-tag {
-            font-size: 0.75rem;
-            color: #aaa;
-            margin-left: 0.5rem;
-        }
+        
+        .cite { font-size: 0.8rem; color: #999; vertical-align: super; }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>伊勢出雲進香團</h1>
+        <h1>伊勢出雲進香團 🐻‍❄️</h1>
         <p>13 天大環線自駕路線規劃</p>
     </header>
 
     <nav class="tabs">
-        <button class="tab-btn active" onclick="openTab(event, 'overview')">行程總覽</button>
-        <button class="tab-btn" onclick="openTab(event, 'day1')">Day 1</button>
+        <button class="tab-btn active" onclick="openTab(event, 'day1')">Day 1</button>
         <button class="tab-btn" onclick="openTab(event, 'day2')">Day 2</button>
         <button class="tab-btn" onclick="openTab(event, 'day3')">Day 3</button>
         <button class="tab-btn" onclick="openTab(event, 'day4')">Day 4</button>
@@ -230,52 +152,30 @@
     </nav>
 
     <main>
-        <section id="overview" class="tab-content active">
+        <section id="day1" class="tab-content active">
             <div class="card">
-                <h2>13 天大環線行程表 <span class="cite-tag">[cite: 1, 2]</span></h2>
-                <div class="table-responsive">
-                    <table>
-                        <tr>
-                            <th>Day</th><th>日期</th><th>星期</th><th>主要行程 / 交通</th><th>景點 / 備註</th><th>住宿點</th><th>飯店名稱</th>
-                        </tr>
-                        <tr><td>1</td><td>7/16</td><td>Thu</td><td>CX564: TPE-KIX (11:05-14:50)<br>租車(16:30)前往伊勢</td><td>機場➔伊勢 (2.5小時)</td><td>伊勢</td><td><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=伊勢にたたずむ 王朝浪漫の夢見宿 斎王の宮" target="_blank" class="map-link">📍 斎王の宮</a></td></tr>
-                        <tr><td>2</td><td>7/17</td><td>Fri</td><td>伊勢神宮(內宮+商店街)</td><td>伊勢神宮(外宮+商店街) / 御朱印</td><td>伊勢</td><td><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=伊勢にたたずむ 王朝浪漫の夢見宿 斎王の宮" target="_blank" class="map-link">📍 斎王の宮</a></td></tr>
-                        <tr><td>3</td><td>7/18</td><td>Sat</td><td>伊勢➔近江八幡 (2hr)</td><td>八幡堀、新町通、八幡山纜車、日牟禮八幡宮</td><td>大津</td><td><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=びわ湖大津プリンスホテル" target="_blank" class="map-link">📍 びわ湖大津プリンスホテル</a></td></tr>
-                        <tr><td>4</td><td>7/19</td><td>Sun</td><td>近江八幡➔滋賀龍王 (20min)</td><td>三井アウトレットパーク 滋賀竜王</td><td>大津</td><td><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=びわ湖大津プリンスホテル" target="_blank" class="map-link">📍 びわ湖大津プリンスホテル</a></td></tr>
-                        <tr><td>5</td><td>7/20</td><td>Mon</td><td>大津➔雄琴溫泉➔志賀</td><td>琵琶湖觀景台、白鬚神社/浮御堂</td><td>雄琴溫泉</td><td><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=おごと温泉 びわこ緑水亭" target="_blank" class="map-link">📍 びわこ緑水亭</a></td></tr>
-                        <tr><td>6</td><td>7/21</td><td>Tue</td><td>琵琶湖➔美山町➔舞鶴</td><td>美山町、舞鶴紅磚倉庫、舞鶴港海鮮市場</td><td>西舞鶴</td><td><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=Hotel Route Inn Kyoto Maizuru" target="_blank" class="map-link">📍 Hotel Route Inn</a></td></tr>
-                        <tr><td>7</td><td>7/22</td><td>Wed</td><td>舞鶴➔天橋立(1小時)</td><td>天橋立(南)、飛龍觀、智恩寺</td><td>天橋立</td><td><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=天橋立・フェアフィールド・バイ・マリオット・京都" target="_blank" class="map-link">📍 萬豪京都天橋立</a></td></tr>
-                        <tr><td>8</td><td>7/23</td><td>Thu</td><td>天橋立(北)➔鳥取市</td><td>元伊勢籠神社、昇龍觀、白兔神社</td><td>鳥取市</td><td><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=鳥取温泉 ホテルモナーク鳥取" target="_blank" class="map-link">📍 ホテルモナーク鳥取</a></td></tr>
-                        <tr><td>9</td><td>7/24</td><td>Fri</td><td>鳥取➔玉造溫泉</td><td>鳥取沙丘、松江城、宍道湖</td><td>松江市</td><td><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=なにわ一水" target="_blank" class="map-link">📍 なにわ一水</a></td></tr>
-                        <tr><td>10</td><td>7/25</td><td>Sat</td><td>玉造溫泉➔出雲大社➔岡山</td><td>稻佐之濱、出雲大社</td><td>岡山</td><td><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=ANA Crowne Plaza OKAYAMA" target="_blank" class="map-link">📍 ANA Crowne Plaza</a></td></tr>
-                        <tr><td>11</td><td>7/26</td><td>Sun</td><td>岡山 / 倉敷</td><td>倉敷美觀地區、瀨戶大橋</td><td>岡山</td><td><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=ANA Crowne Plaza OKAYAMA" target="_blank" class="map-link">📍 ANA Crowne Plaza</a></td></tr>
-                        <tr><td>12</td><td>7/27</td><td>Mon</td><td>岡山➔神戶(2.2小時)</td><td>神戶牛排、三井Outlet神戶</td><td>神戶</td><td><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=Kobe Luminous Hotel Sannomiya" target="_blank" class="map-link">📍 Kobe Luminous Hotel</a></td></tr>
-                        <tr><td>13</td><td>7/28</td><td>Tue</td><td>神戶➔關西機場</td><td>CX565: KIX-TPE 16:15 / 14:00 還車</td><td>-</td><td>-</td></tr>
-                    </table>
+                <h2>Day 1 (7/16 木)：抵達關西與伊勢自駕</h2>
+                <div class="hotel-info">
+                    <strong>🏨 住宿：</strong> <a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=王朝浪漫の夢見宿 斎王の宮" target="_blank" class="map-link">📍 伊勢にたたずむ 王朝浪漫の夢見宿 斎王の宮</a> <span class="cite">[cite: 1]</span>
                 </div>
-            </div>
-        </section>
-
-        <section id="day1" class="tab-content">
-            <div class="card">
-                <h2>Day 1 (7/16 木)：抵達關西與伊勢自駕 <span class="cite-tag">[cite: 3]</span></h2>
                 <ul>
-                    <li>抵達 <a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=關西國際機場" target="_blank" class="map-link">📍 關西國際機場 (KIX)</a> 後，辦理租車手續。<span class="cite-tag">[cite: 4]</span></li>
+                    <li>航班：搭乘 CX564 班機，11:05 從 TPE 出發，14:50 抵達 <a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=關西國際機場" target="_blank" class="map-link">📍 關西國際機場 (KIX)</a> <span class="cite">[cite: 1, 3]</span>。</li>
+                    <li>交通：抵達後辦理租車手續（16:30），隨後驅車前往伊勢，車程約 2.5 小時 <span class="cite">[cite: 1, 4]</span>。</li>
                 </ul>
-                <h3>晚餐選項：燒肉 / 鰻魚飯 <span class="cite-tag">[cite: 5, 16]</span></h3>
+                <h3>🍽️ 晚餐選項：燒肉 / 鰻魚飯</h3>
                 <ul>
                     <li><strong>燒肉推薦：</strong>
                         <ul>
-                            <li><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=炭火燒肉 友丸" target="_blank" class="map-link">📍 炭火燒肉 友丸</a>：伊勢銀座新道商店街內，主打黑毛和牛與松阪牛。附設停車場。<span class="cite-tag">[cite: 7, 8, 9]</span></li>
-                            <li><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=燒肉 An" target="_blank" class="map-link">📍 燒肉 An</a>：極佳七輪炭火燒肉，專屬免費停車場。<span class="cite-tag">[cite: 10, 11]</span></li>
-                            <li><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=網燒・道" target="_blank" class="map-link">📍 網燒・道</a>：宮後地區，提供美味網烤雞肉與燒肉。附免費停車位。<span class="cite-tag">[cite: 12, 13]</span></li>
-                            <li><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=とり乃家 しんみち店" target="_blank" class="map-link">📍 とり乃家 しんみち店</a>：主打網烤味噌雞肉燒肉。<span class="cite-tag">[cite: 14, 15]</span></li>
+                            <li><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=炭火燒肉 友丸 伊勢" target="_blank" class="map-link">📍 炭火燒肉 友丸</a>：位於伊勢銀座新道商店街，主打黑毛和牛與松阪牛，附設停車場，客滿可停新道第一停車場 <span class="cite">[cite: 7, 8, 9]</span>。</li>
+                            <li><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=燒肉 An 伊勢" target="_blank" class="map-link">📍 燒肉 An</a>：提供極佳的七輪炭火燒肉體驗，門口有專屬免費停車場 <span class="cite">[cite: 10, 11]</span>。</li>
+                            <li><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=網燒・道 伊勢" target="_blank" class="map-link">📍 網燒・道</a>：靠近宮後地區，提供美味網烤雞肉與燒肉，前方有免費停車位 <span class="cite">[cite: 12, 13]</span>。</li>
+                            <li><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=とり乃家 しんみち店" target="_blank" class="map-link">📍 とり乃家 しんみち店</a>：主打網烤味噌雞肉燒肉，備有免費專用停車場 <span class="cite">[cite: 14, 15]</span>。</li>
                         </ul>
                     </li>
                     <li><strong>鰻魚飯推薦：</strong>
                         <ul>
-                            <li><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=岡本淡水" target="_blank" class="map-link">📍 岡本淡水</a> <a href="https://maps.app.goo.gl/9HaC2ANJKwYCe7c36?g_st=ic" target="_blank">MAP 連結</a><span class="cite-tag">[cite: 17, 18]</span></li>
-                            <li><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=Unashima" target="_blank" class="map-link">📍 Unashima</a> <a href="https://maps.app.goo.gl/R8Z578C6vgsirt917?g_st=ic" target="_blank">MAP 連結</a><span class="cite-tag">[cite: 19, 20]</span></li>
+                            <li><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=岡本淡水" target="_blank" class="map-link">📍 岡本淡水</a> <span class="cite">[cite: 17, 18]</span>。</li>
+                            <li><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=Unashima" target="_blank" class="map-link">📍 Unashima</a> <span class="cite">[cite: 19, 20]</span>。</li>
                         </ul>
                     </li>
                 </ul>
@@ -284,123 +184,134 @@
 
         <section id="day2" class="tab-content">
             <div class="card">
-                <h2>Day 2 (7/17 金)：神聖的參拜 - 伊勢神宮 <span class="cite-tag">[cite: 21]</span></h2>
-                <p>參閱攻略：<a href="https://chubu.letsgojp.com/archives/46394/" target="_blank">伊勢神宮2026攻略</a> (營業時間 5:00-19:00)<span class="cite-tag">[cite: 22, 23]</span></p>
-                
-                <h3>無障礙參拜要點 <span class="cite-tag">[cite: 24, 28]</span></h3>
+                <h2>Day 2 (7/17 金)：神聖的參拜 - 伊勢神宮</h2>
+                <div class="hotel-info">
+                    <strong>🏨 住宿：</strong> <a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=王朝浪漫の夢見宿 斎王の宮" target="_blank" class="map-link">📍 伊勢にたたずむ 王朝浪漫の夢見宿 斎王の宮</a> <span class="cite">[cite: 1]</span>
+                </div>
+                <h3>⛩️ 伊勢神宮參拜要點</h3>
                 <ul>
-                    <li><strong>租借服務：</strong><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=伊勢神宮 內宮" target="_blank" class="map-link">📍 內宮</a>、<a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=伊勢神宮 外宮" target="_blank" class="map-link">📍 外宮</a> 的衛士詰所（警衛室）可免費租借輪椅和嬰兒車。<span class="cite-tag">[cite: 25]</span></li>
-                    <li><strong>輪椅通道：</strong>參道旁設有專用通道，避免碎石路受阻。可向工作人員尋求階梯搬運協助。<span class="cite-tag">[cite: 26, 27]</span></li>
+                    <li>營業時間：5:00-19:00 <span class="cite">[cite: 23]</span>。</li>
+                    <li><strong>無障礙服務：</strong>內宮、外宮的衛士詰所可免費租借輪椅，參道旁設有專用通道，必要時可向工作人員尋求搬運協助 <span class="cite">[cite: 24, 25, 26, 27]</span>。</li>
+                    <li><strong>停車資訊：</strong>外宮與內宮相距約 4 公里 <span class="cite">[cite: 29]</span>。外宮第1至第3停車場免費限停2小時 <span class="cite">[cite: 30]</span>；內宮 A1、A2 停車場距離最近，1小時內免費 <span class="cite">[cite: 32]</span>。</li>
+                    <li><strong>參拜順序：</strong>先至 <a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=伊勢神宮 外宮" target="_blank" class="map-link">📍 外宮</a> 的御正宮與別宮，再前往 <a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=伊勢神宮 內宮" target="_blank" class="map-link">📍 內宮</a> 的御正宮與別宮 <span class="cite">[cite: 34]</span>。外宮左側通行，內宮右側通行 <span class="cite">[cite: 36]</span>。</li>
+                    <li><strong>能量點與別宮：</strong>外宮可參觀多賀宮、土宮、風宮及三石/龜石 <span class="cite">[cite: 37, 39]</span>；內宮可參拜荒祭宮、瀧祭神及四至神/子安神社 <span class="cite">[cite: 37, 40]</span>。</li>
                 </ul>
 
-                <h3>停車與參拜順序 <span class="cite-tag">[cite: 29, 34, 35, 36]</span></h3>
+                <h3>🍡 托福橫丁 (おかげ横丁) 美食</h3>
                 <ul>
-                    <li>外宮與內宮相距約 4 公里。<span class="cite-tag">[cite: 29]</span></li>
-                    <li><strong>外宮：</strong>第1、2、3停車場免費停2小時。參拜順序：御正宮 → 別宮(多賀宮/土宮/風宮)。左側通行。<span class="cite-tag">[cite: 30, 31, 34, 36, 39]</span></li>
-                    <li><strong>內宮：</strong>A1、A2停車場距入口近(1小時免費)。參拜順序：御正宮 → 別宮(荒祭宮/瀧祭神)。右側通行。<span class="cite-tag">[cite: 32, 33, 34, 36, 40]</span></li>
-                    <li><strong>能量點：</strong>外宮(三石/龜石)、內宮(四至神/子安神社)。<span class="cite-tag">[cite: 37]</span></li>
-                </ul>
-
-                <h3>托福橫丁 (おかげ横丁) 美食 <span class="cite-tag">[cite: 41]</span></h3>
-                <ul>
-                    <li><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=赤福本店" target="_blank" class="map-link">📍 赤福本店</a>：300年老店，必吃赤福餅/夏日限定赤福冰。<span class="cite-tag">[cite: 42, 44]</span></li>
-                    <li><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=ふくすけ" target="_blank" class="map-link">📍 ふくすけ</a>：品嚐極粗麵條的伊勢烏龍麵。<span class="cite-tag">[cite: 43]</span></li>
-                    <li><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=豚捨" target="_blank" class="map-link">📍 豚捨</a>：伊勢牛可樂餅，邊走邊吃最佳點心。<span class="cite-tag">[cite: 45, 46]</span></li>
+                    <li><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=赤福本店 伊勢" target="_blank" class="map-link">📍 赤福本店</a>：300年老店，必吃現做赤福餅與夏日限定赤福冰 <span class="cite">[cite: 42]</span>。</li>
+                    <li><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=ふくすけ 伊勢" target="_blank" class="map-link">📍 ふくすけ</a>：品嚐極粗麵條、濃郁醬汁的伊勢烏龍麵 <span class="cite">[cite: 43]</span>。</li>
+                    <li><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=豚捨 伊勢" target="_blank" class="map-link">📍 豚捨</a>：外皮酥脆的伊勢牛可樂餅，邊走邊吃最佳點心 <span class="cite">[cite: 45]</span>。</li>
                 </ul>
             </div>
         </section>
 
         <section id="day3" class="tab-content">
             <div class="card">
-                <h2>Day 3 (7/18 土)：琵琶湖與近江八幡 <span class="cite-tag">[cite: 47]</span></h2>
-                <p>參考遊記：<a href="https://osaka.letsgojp.com/archives/761883/" target="_blank">滋賀琵琶湖</a> / <a href="https://tenjo.tw/omihachiman/" target="_blank">近江八幡遊記</a> <span class="cite-tag">[cite: 48, 50, 51, 52]</span></p>
-                
-                <h3>景點與停車 <span class="cite-tag">[cite: 49, 59]</span></h3>
+                <h2>Day 3 (7/18 土)：琵琶湖與近江八幡</h2>
+                <div class="hotel-info">
+                    <strong>🏨 住宿：</strong> <a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=びわ湖大津プリンスホテル" target="_blank" class="map-link">📍 びわ湖大津プリンスホテル</a> <span class="cite">[cite: 1]</span>
+                </div>
+                <h3>🌊 景點與停車建議</h3>
                 <ul>
-                    <li><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=日牟禮八幡宮" target="_blank" class="map-link">📍 日牟禮八幡宮</a>：參拜並搭乘「八幡山口纜車」至 <a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=八幡山展望館" target="_blank" class="map-link">📍 八幡山展望館</a>。<span class="cite-tag">[cite: 53, 54]</span></li>
-                    <li>漫步 <strong>近江商人街景（新町通）</strong>。<span class="cite-tag">[cite: 55]</span></li>
-                    <li><strong>停車建議：</strong>日牟禮八幡宮前免費停車場（里道）最便利；或停市營小幡觀光停車場、多賀觀光停車場(¥500-510/日)。<span class="cite-tag">[cite: 60, 61, 62, 63, 64, 65, 66, 67, 68]</span></li>
-                    <li>備案：<a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=彥根城" target="_blank" class="map-link">📍 彥根城</a>，保留江戶時代原始天守。<span class="cite-tag">[cite: 69, 70]</span></li>
+                    <li>自駕從伊勢前往近江八幡，車程約 2 小時 <span class="cite">[cite: 3]</span>。</li>
+                    <li>景點：漫步八幡堀與近江商人街景（新町通） <span class="cite">[cite: 3, 55]</span>。參拜 <a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=日牟禮八幡宮" target="_blank" class="map-link">📍 日牟禮八幡宮</a> 後，搭乘纜車（來回950日圓）至八幡山展望館 <span class="cite">[cite: 53, 54]</span>。</li>
+                    <li><strong>停車：</strong>推薦停在緊鄰神社的日牟禮八幡宮前免費停車場 <span class="cite">[cite: 60, 61, 62]</span>。若客滿可停市營小幡觀光停車場或多賀觀光停車場（當日最高約 ¥500-¥510） <span class="cite">[cite: 63, 64, 66, 67]</span>。</li>
+                    <li>備案：<a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=彥根城" target="_blank" class="map-link">📍 彥根城</a>，保留江戶時代原始天守與獨特防禦構造 <span class="cite">[cite: 69, 70]</span>；或選擇長命寺、黑壁廣場 <span class="cite">[cite: 3, 71]</span>。</li>
                 </ul>
 
-                <h3>午餐與點心推薦 <span class="cite-tag">[cite: 56, 57]</span></h3>
+                <h3>🥩 午餐與點心推薦</h3>
                 <ul>
-                    <li><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=丸竹近江牛西川" target="_blank" class="map-link">📍 丸竹近江牛西川</a>：平價品嚐日本三大和牛壽喜燒。<span class="cite-tag">[cite: 56]</span></li>
-                    <li><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=たねや 日牟禮乃舍" target="_blank" class="map-link">📍 たねや 日牟禮乃舍</a>：近江式家常飯菜，必點甜點「つぶら餅」。<span class="cite-tag">[cite: 57]</span></li>
-                    <li><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=La Collina近江八幡" target="_blank" class="map-link">📍 La Collina近江八幡</a>：年輪蛋糕工廠。<span class="cite-tag">[cite: 58]</span></li>
+                    <li><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=丸竹近江牛西川" target="_blank" class="map-link">📍 丸竹近江牛西川</a>：能以平價品嚐日本三大和牛近江牛壽喜燒，亦可外帶 <span class="cite">[cite: 56]</span>。</li>
+                    <li><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=たねや 日牟禮乃舍" target="_blank" class="map-link">📍 たねや 日牟禮乃舍</a>：提供近江家常飯菜與近江牛套餐，必吃酥脆彈牙的甜點「麻糬餅」(つぶら餅) <span class="cite">[cite: 57]</span>。</li>
+                    <li><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=La Collina近江八幡" target="_blank" class="map-link">📍 La Collina近江八幡</a>：知名年輪蛋糕工廠 <span class="cite">[cite: 58]</span>。</li>
                 </ul>
             </div>
         </section>
 
         <section id="day4" class="tab-content">
             <div class="card">
-                <h2>Day 4 (7/19 日)：滋賀龍王 Outlet <span class="cite-tag">[cite: 72]</span></h2>
-                <h3><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=三井アウトレットパーク 滋賀竜王" target="_blank" class="map-link">📍 三井アウトレットパーク 滋賀竜王</a> <span class="cite-tag">[cite: 73]</span></h3>
+                <h2>Day 4 (7/19 日)：滋賀龍王 Outlet</h2>
+                <div class="hotel-info">
+                    <strong>🏨 住宿：</strong> <a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=びわ湖大津プリンスホテル" target="_blank" class="map-link">📍 びわ湖大津プリンスホテル</a> <span class="cite">[cite: 1]</span>
+                </div>
+                <h3>🛍️ <a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=三井アウトレットパーク 滋賀竜王" target="_blank" class="map-link">📍 三井アウトレットパーク 滋賀竜王</a></h3>
                 <ul>
-                    <li>攻略：從南館開始逛(餐廳集中)，可先到綜合服務台領優惠券。北館有咖啡廳。<span class="cite-tag">[cite: 74]</span></li>
-                    <li><strong>戶外/露營：</strong>mont-bell (輕量傘/保溫瓶極推，注意無免稅)、Columbia、Logos。<span class="cite-tag">[cite: 75, 76, 77, 83, 84]</span></li>
-                    <li><strong>廚房用品：</strong>Le Creuset、Staub、Franc Franc。<span class="cite-tag">[cite: 78, 79]</span></li>
-                    <li><strong>服飾精品：</strong>BEAMS, GAP, Coach, Michael Kors, NIKE, Under Armour 等。<span class="cite-tag">[cite: 80, 81, 82]</span></li>
+                    <li>攻略：建議從南館開始逛（餐廳、入口與停車場集中），可先至綜合服務台用護照領取優惠券 <span class="cite">[cite: 74]</span>。</li>
+                    <li><strong>戶外/露營：</strong>mont-bell（推薦輕量傘與保溫瓶，注意無法免稅）、Columbia、Logos <span class="cite">[cite: 75, 76, 77, 83]</span>。</li>
+                    <li><strong>廚房用品：</strong>Le Creuset、Staub、iittala、Franc Franc <span class="cite">[cite: 78, 79]</span>。</li>
+                    <li><strong>服飾與精品：</strong>GAP, ZARA, Coach, Michael Kors, NIKE, Under Armour 等 <span class="cite">[cite: 80, 81, 82]</span>。（購買前建議詢問是否提供免稅 <span class="cite">[cite: 84]</span>）。</li>
                 </ul>
-                <p>順路景點：<a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=大洗明太子主題公園" target="_blank" class="map-link">📍 大洗明太子主題公園</a> <span class="cite-tag">[cite: 85]</span></p>
+                <p>順路備案：<a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=大洗明太子主題公園" target="_blank" class="map-link">📍 大洗明太子主題公園</a> <span class="cite">[cite: 85]</span>。</p>
             </div>
         </section>
 
         <section id="day5" class="tab-content">
             <div class="card">
-                <h2>Day 5 (7/20 月)：雄琴溫泉與琵琶湖絕景 <span class="cite-tag">[cite: 86]</span></h2>
+                <h2>Day 5 (7/20 月)：雄琴溫泉與琵琶湖絕景</h2>
+                <div class="hotel-info">
+                    <strong>🏨 住宿：</strong> <a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=おごと温泉 びわこ緑水亭" target="_blank" class="map-link">📍 おごと温泉 びわこ緑水亭</a> <span class="cite">[cite: 1, 5]</span>
+                </div>
+                <h3>⛰️ 琵琶湖絕景與神社</h3>
                 <ul>
-                    <li><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=The biwako terrace" target="_blank" class="map-link">📍 琵琶湖觀景台 The biwako terrace</a>：輪椅可上纜車，停車 ¥1000，設施使用費 ¥5000。<span class="cite-tag">[cite: 87, 88, 89, 90]</span></li>
-                    <li><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=白鬚神社" target="_blank" class="map-link">📍 白鬚神社</a> 與 <a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=浮御堂" target="_blank" class="map-link">📍 浮御堂</a>。<span class="cite-tag">[cite: 91, 92]</span></li>
-                    <li><strong>美食：</strong><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=白ひげ食堂" target="_blank" class="map-link">📍 白ひげ食堂</a> 懷舊平價豚汁拉麵。<span class="cite-tag">[cite: 93, 94, 95]</span></li>
+                    <li><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=琵琶湖觀景台" target="_blank" class="map-link">📍 琵琶湖觀景台 The biwako terrace</a>：輪椅可上纜車，停車1日券 1000 圓，設施使用費 5000 圓 <span class="cite">[cite: 87, 89, 90]</span>。</li>
+                    <li>參訪滋賀龍王的 <a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=白鬚神社" target="_blank" class="map-link">📍 白鬚神社</a>（擁有水上鳥居）與 <a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=浮御堂" target="_blank" class="map-link">📍 浮御堂</a> <span class="cite">[cite: 91, 92]</span>。</li>
+                    <li><strong>美食：</strong><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=白ひげ食堂" target="_blank" class="map-link">📍 白ひげ食堂</a>，位於白鬚神社對面，提供具備大量蔬菜與鮮甜湯頭的平價豚汁拉麵 <span class="cite">[cite: 93, 94, 95]</span>。</li>
                 </ul>
 
-                <h3>備案：西近江七福神巡禮 / 琵琶湖大橋 <span class="cite-tag">[cite: 96, 99]</span></h3>
+                <h3>⛩️ 備案行程</h3>
                 <ul>
-                    <li>沿線七福神：大崎寺(毗沙門天)、唐崎神社(惠比壽神)、西江寺(辯才天) 等。<span class="cite-tag">[cite: 98]</span></li>
-                    <li><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=琵琶湖大橋米廣場" target="_blank" class="map-link">📍 琵琶湖大橋米廣場</a> 道路休息站。<span class="cite-tag">[cite: 100]</span></li>
-                    <li><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=日吉大社" target="_blank" class="map-link">📍 日吉大社</a>：賞獨特「山王鳥居」與神猿木雕。<span class="cite-tag">[cite: 101, 102, 103, 104, 105, 106]</span></li>
+                    <li><strong>西近江七福神巡禮：</strong>自駕沿線參拜大崎寺(毗沙門天)、唐崎神社(惠比壽神)、西江寺(辯才天)、正傳寺(大黑天)等，總車程約 4 小時 <span class="cite">[cite: 96, 97, 98]</span>。</li>
+                    <li>休息站：<a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=琵琶湖大橋米廣場" target="_blank" class="map-link">📍 道之驛 琵琶湖大橋米廣場</a> <span class="cite">[cite: 99, 100]</span>。</li>
+                    <li><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=日吉大社" target="_blank" class="map-link">📍 日吉大社</a>：擁有 2100 年歷史，可尋找祈求驅魔勝出的「神猿」木雕，並欣賞獨特的「山王鳥居」與國寶本殿，停車費 300 日圓 <span class="cite">[cite: 101, 102, 104, 105, 106]</span>。</li>
                 </ul>
             </div>
         </section>
 
         <section id="day6" class="tab-content">
             <div class="card">
-                <h2>Day 6 (7/21 火)：美山町合掌村 ➔ 舞鶴 <span class="cite-tag">[cite: 107]</span></h2>
-                <h3><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=美山茅葺之里" target="_blank" class="map-link">📍 美山茅葺之里</a> (日本三大合掌村) <span class="cite-tag">[cite: 109]</span></h3>
+                <h2>Day 6 (7/21 火)：美山町合掌村 ➔ 舞鶴</h2>
+                <div class="hotel-info">
+                    <strong>🏨 住宿：</strong> <a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=Hotel Route Inn Kyoto Maizuru" target="_blank" class="map-link">📍 Hotel Route Inn Kyoto Maizuru -NISHI MAIZURU EKIMAE-</a> <span class="cite">[cite: 1, 6]</span>
+                </div>
+                <h3>🛖 <a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=美山茅葺之里" target="_blank" class="map-link">📍 美山茅葺之里</a> (日本三大合掌村)</h3>
                 <ul>
-                    <li><strong>文化參觀：</strong>美山民俗資料館、小小藍美術館、知井八幡神社。<span class="cite-tag">[cite: 110, 111, 112]</span></li>
-                    <li><strong>美食/咖啡：</strong>食事處 北村(蕎麥麵)、Cafe＆Gallery 彩花(糰子)、cafe 美卵(自家製布丁)、Kamitsure(熱壓三明治)。<span class="cite-tag">[cite: 113, 114, 115, 116]</span></li>
-                    <li><strong>停車：</strong>聚落入口對面，¥500。<span class="cite-tag">[cite: 122, 123, 124, 125]</span></li>
+                    <li>特色：夏季氣溫比市區低 2 至 3 度，可欣賞里山風光與滿天繁星 <span class="cite">[cite: 109]</span>。</li>
+                    <li><strong>文化參觀：</strong>美山民俗資料館（唯一可參觀內部） <span class="cite">[cite: 110]</span>、小小藍美術館（可參觀藍染） <span class="cite">[cite: 111]</span>、知井八幡神社（優美木造雕刻） <span class="cite">[cite: 112]</span>。</li>
+                    <li><strong>美食與咖啡：</strong>食事處 北村（手工蕎麥麵） <span class="cite">[cite: 113]</span>、Cafe＆Gallery 彩花（推薦黍工房糰子套餐） <span class="cite">[cite: 114]</span>、cafe 美卵（自家製布丁） <span class="cite">[cite: 115]</span>、Kamitsure（熱壓三明治） <span class="cite">[cite: 116]</span>。</li>
+                    <li><strong>伴手禮：</strong>土產處 茅之里、野田商店（提供觀光導覽） <span class="cite">[cite: 117, 118]</span>。</li>
+                    <li><strong>停車：</strong>聚落入口對面，費用 ¥500 <span class="cite">[cite: 122, 123, 124]</span>。</li>
                 </ul>
                 
-                <h3>海軍與漁村之城：舞鶴 <span class="cite-tag">[cite: 126, 127, 128]</span></h3>
+                <h3>⚓ 海軍與漁村之城：舞鶴</h3>
                 <ul>
-                    <li><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=舞鶴紅磚公園" target="_blank" class="map-link">📍 舞鶴紅磚公園</a>：倉庫改建的博物館與咖啡館。<span class="cite-tag">[cite: 129]</span></li>
-                    <li><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=舞鶴港海鮮市場" target="_blank" class="map-link">📍 舞鶴港海鮮市場 (Tore Tore Center)</a>：大啖岩牡蠣。<span class="cite-tag">[cite: 131]</span></li>
-                    <li>備案：<a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=吉原入江" target="_blank" class="map-link">📍 吉原入江</a> (東方威尼斯)、五老岳公園。<span class="cite-tag">[cite: 132, 133]</span></li>
+                    <li><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=舞鶴紅磚公園" target="_blank" class="map-link">📍 舞鶴紅磚公園</a>：參觀東舞鶴倉庫改建的博物館與咖啡館 <span class="cite">[cite: 126, 129]</span>。</li>
+                    <li><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=舞鶴港海鮮市場" target="_blank" class="map-link">📍 舞鶴港海鮮市場 (Tore Tore Center)</a>：西舞鶴必訪，營業至 18:00，大啖岩牡蠣 <span class="cite">[cite: 6, 131]</span>。</li>
+                    <li>備案：被譽為東方威尼斯的 <a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=吉原入江" target="_blank" class="map-link">📍 吉原入江</a>（可停西舞鶴站停車場步行前往），以及五老岳公園 <span class="cite">[cite: 132, 133]</span>。</li>
                 </ul>
             </div>
         </section>
 
         <section id="day7" class="tab-content">
             <div class="card">
-                <h2>Day 7 (7/22 水)：海之京都 - 天橋立(北) <span class="cite-tag">[cite: 134]</span></h2>
-                
-                <h3><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=元伊勢籠神社" target="_blank" class="map-link">📍 元伊勢籠神社</a> <span class="cite-tag">[cite: 135]</span></h3>
+                <h2>Day 7 (7/22 水)：海之京都 - 天橋立(北)</h2>
+                <div class="hotel-info">
+                    <strong>🏨 住宿：</strong> <a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=天橋立・フェアフィールド・バイ・マリオット・京都" target="_blank" class="map-link">📍 天橋立・フェアフィールド・バイ・マリオット・京都</a> <span class="cite">[cite: 1, 7]</span>
+                </div>
+                <h3>⛩️ <a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=元伊勢籠神社" target="_blank" class="map-link">📍 元伊勢籠神社</a></h3>
                 <ul>
-                    <li>建築亮點：五色座玉 (與伊勢神宮同規格)、最古老神明造本殿、魔除狛犬。<span class="cite-tag">[cite: 139, 140, 141]</span></li>
-                    <li>能量點：奧宮「真名井神社」御神水、產靈庭與水琴窟。<span class="cite-tag">[cite: 142, 143]</span></li>
-                    <li>停車：一般轎車 ¥800 (30分鐘免費)。<span class="cite-tag">[cite: 136, 137, 138]</span></li>
+                    <li>停車：一般轎車 800 日圓，30 分鐘內免費 <span class="cite">[cite: 138]</span>。</li>
+                    <li>建築亮點：本殿裝飾與伊勢神宮同規格的高極別「五色座玉」 <span class="cite">[cite: 139]</span>，為全日本最接近伊勢神宮內宮的「神明造」樣式 <span class="cite">[cite: 140]</span>，並有具辟邪力量的國家重要文化財「魔除狛犬」 <span class="cite">[cite: 141]</span>。</li>
+                    <li>能量點：可聆聽水琴窟清脆琴聲 <span class="cite">[cite: 142]</span>，並步行至奧宮「真名井神社」取湧泉御神水 <span class="cite">[cite: 143]</span>。</li>
                 </ul>
 
-                <h3><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=傘松公園" target="_blank" class="map-link">📍 昇龍觀 (傘松公園)</a> 與 <a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=成相寺" target="_blank" class="map-link">📍 成相寺</a> <span class="cite-tag">[cite: 144, 147]</span></h3>
+                <h3>🚠 <a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=成相寺" target="_blank" class="map-link">📍 昇龍觀與成相寺</a></h3>
                 <ul>
-                    <li>成相寺全景展望台可鳥瞰天橋立。入山費 ¥500。<span class="cite-tag">[cite: 148, 149]</span></li>
-                    <li><strong>交通方案分析：</strong>
+                    <li>成相寺擁有可 360 度鳥瞰天橋立的全景展望台，並有一願一言地藏與左甚五郎雕刻的真向之龍。入山費 500 日圓 <span class="cite">[cite: 147, 148, 149, 151, 152]</span>。</li>
+                    <li><strong>無障礙交通方案分析：</strong>
                         <ul>
-                            <li><strong>方案一 (推薦)：</strong>車停 <a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=宮津港 F濱町停車場" target="_blank" class="map-link">📍 宮津港 F濱町停車場</a>(免費)，搭觀光船 ➔ 纜車上傘松公園 ➔ 轉巴士到成相寺。(需事先Email安排輪椅協助)。<span class="cite-tag">[cite: 153]</span></li>
-                            <li><strong>方案二 (自駕挑戰)：</strong>直接開車上成相寺本堂，山路極陡且狹窄，不易會車。<span class="cite-tag">[cite: 154]</span></li>
+                            <li><strong>方案一 (推薦)：</strong>車停 <a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=宮津港 F濱町停車場" target="_blank" class="map-link">📍 宮津港 F濱町停車場</a>（免費），搭觀光船 ➔ 纜車上傘松公園 ➔ 轉巴士到成相寺 <span class="cite">[cite: 153]</span>。優點是免走回頭路。輪椅須為可折疊款式，每班巴士限載 1 台，建議事先 Email 丹後海陸交通預約協助 <span class="cite">[cite: 153]</span>。持手冊享交通半價優惠 <span class="cite">[cite: 156]</span>。</li>
+                            <li><strong>方案二 (自駕挑戰)：</strong>直接開車上成相寺本堂停車場。山路極度狹窄且有 45 度連續髮夾彎，易打滑且本堂仍有石階，對輪椅族並不友善 <span class="cite">[cite: 154]</span>。</li>
                         </ul>
                     </li>
                 </ul>
@@ -409,135 +320,144 @@
 
         <section id="day8" class="tab-content">
             <div class="card">
-                <h2>Day 8 (7/23 木)：海之京都 - 天橋立(南) <span class="cite-tag">[cite: 157, 158]</span></h2>
+                <h2>Day 8 (7/23 木)：海之京都 - 天橋立(南) 日本三景</h2>
+                <div class="hotel-info">
+                    <strong>🏨 住宿：</strong> <a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=鳥取温泉 ホテルモナーク鳥取" target="_blank" class="map-link">📍 鳥取温泉 ホテルモナーク鳥取</a> <span class="cite">[cite: 1, 8]</span>
+                </div>
+                <h3>🐉 天橋立南側景點</h3>
                 <ul>
-                    <li><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=飛龍觀" target="_blank" class="map-link">📍 飛龍觀</a>：南側觀景點，由胯下眺望形似飛龍。園區有輪椅專用電梯與單軌電車。(門票 ¥1000/身障優惠)。<span class="cite-tag">[cite: 159, 160, 161, 162]</span></li>
-                    <li><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=天橋立神社" target="_blank" class="map-link">📍 天橋立神社</a> 與 沙洲漫步。<span class="cite-tag">[cite: 163]</span></li>
-                    <li><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=智恩寺" target="_blank" class="map-link">📍 智恩寺</a>：『日本三文殊』之一，欣賞雪舟畫中的「多寶塔」。<span class="cite-tag">[cite: 164]</span></li>
-                    <li><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=廻旋橋" target="_blank" class="map-link">📍 廻旋橋</a>：連接陸地與沙洲的獨特旋轉橋，旋轉場景是熱門拍照點。<span class="cite-tag">[cite: 165]</span></li>
+                    <li><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=飛龍觀" target="_blank" class="map-link">📍 飛龍觀 (View Land)</a>：由南側觀景台胯下眺望，形似躍昇的飛龍。門票 1000 日圓，身障者與 1 名陪伴者各享 500 日圓優惠，園區設有輪椅專用電梯的單軌電車 <span class="cite">[cite: 159, 160, 161]</span>。</li>
+                    <li><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=智恩寺" target="_blank" class="map-link">📍 智恩寺</a>：『日本三文殊』之一，可欣賞雪舟畫中描繪的重要文化財「多寶塔」與作為花手水的「鐵湯舟」 <span class="cite">[cite: 164]</span>。</li>
+                    <li><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=廻旋橋" target="_blank" class="map-link">📍 廻旋橋</a>：連結陸地與沙洲的獨特旋轉橋，旋轉 1 次約 5 分鐘，是絕佳拍照點 <span class="cite">[cite: 165]</span>。</li>
+                    <li>下午將驅車前往鳥取市，車程約 2 小時 <span class="cite">[cite: 8]</span>。</li>
                 </ul>
             </div>
         </section>
 
         <section id="day9" class="tab-content">
             <div class="card">
-                <h2>Day 9 (7/24 金)：鳥取沙丘與神話結緣 <span class="cite-tag">[cite: 166]</span></h2>
+                <h2>Day 9 (7/24 金)：鳥取沙丘與神話結緣</h2>
+                <div class="hotel-info">
+                    <strong>🏨 住宿：</strong> <a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=なにわ一水" target="_blank" class="map-link">📍 松江市 なにわ一水</a> <span class="cite">[cite: 1, 9]</span>
+                </div>
                 
-                <h3><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=鳥取砂丘" target="_blank" class="map-link">📍 鳥取砂丘</a> <span class="cite-tag">[cite: 167, 171]</span></h3>
+                <h3>🐪 <a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=鳥取沙丘" target="_blank" class="map-link">📍 鳥取砂丘</a></h3>
                 <ul>
-                    <li>奇景：風紋、高達 47 公尺的「馬之背」。<span class="cite-tag">[cite: 172]</span></li>
-                    <li>無障礙服務：設有無障礙木棧道，遊客中心免費提供「充氣大輪胎沙灘專用輪椅」，可直達沙丘。<span class="cite-tag">[cite: 168, 169, 173, 174]</span></li>
-                    <li>周邊：<a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=砂之美術館" target="_blank" class="map-link">📍 砂之美術館</a> (全館無障礙) 及 隈研吾設計的 Tottori Takahama Cafe。<span class="cite-tag">[cite: 175, 176]</span></li>
+                    <li>奇景：欣賞風紋，並步行至高達 47 公尺的「馬之背」飽覽日本海，停車費 500 日圓 <span class="cite">[cite: 170, 171, 172]</span>。</li>
+                    <li><strong>無障礙服務：</strong>入口設有 100 公尺木製無障礙坡道 <span class="cite">[cite: 173]</span>；遊客中心提供免費租借「充氣大輪胎沙灘專用輪椅」，可直達沙丘核心 <span class="cite">[cite: 169, 174]</span>。</li>
+                    <li>周邊：全館無障礙的 <a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=砂之美術館" target="_blank" class="map-link">📍 砂之美術館</a> <span class="cite">[cite: 175]</span>，以及隈研吾設計的無障礙高島屋 Tottori Takahama Cafe <span class="cite">[cite: 176]</span>。</li>
                 </ul>
 
-                <h3><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=白兔神社" target="_blank" class="map-link">📍 白兔神社</a> 與 <a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=松江城" target="_blank" class="map-link">📍 松江城</a> <span class="cite-tag">[cite: 177]</span></h3>
+                <h3>🐇 <a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=白兔神社" target="_blank" class="map-link">📍 白兔神社</a> 與 堀川遊覽船</h3>
                 <ul>
-                    <li>白兔神社：神話發源地，將「結緣石」放上鳥居祈求良緣，必買兔子神籤。<span class="cite-tag">[cite: 178, 179, 180, 181, 182, 183]</span></li>
-                    <li>松江城 堀川遊覽船：推薦停「大手前停車場」，輪椅旅客亦可順利搭乘(一日券優惠)。<span class="cite-tag">[cite: 184, 185, 186, 187, 188]</span></li>
+                    <li>白兔神社：神話「因幡的白兔」發源地。將「結緣石」放上鳥居祈求良緣，參觀御身洗池，必買超萌白兔陶製籤詩與御守 <span class="cite">[cite: 177, 179, 180, 181, 182]</span>。對面即是神話中的白兔海岸 <span class="cite">[cite: 183]</span>。</li>
+                    <li><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=松江城" target="_blank" class="map-link">📍 松江城</a> 堀川遊覽船：推薦停在「大手前停車場」（持手冊停車費半價），於大手前廣場搭船 <span class="cite">[cite: 187]</span>。碼頭設有斜坡且人員友善，船票出示手冊與 1 名陪伴者皆享半價優惠（1000日圓） <span class="cite">[cite: 185, 188]</span>。</li>
                 </ul>
 
-                <h3><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=玉造溫泉" target="_blank" class="map-link">📍 玉造溫泉</a> <span class="cite-tag">[cite: 189]</span></h3>
-                <p>日本最古老「神之湯」，硫酸鹽泉質具絕佳「美肌功效」。溫泉街散步、泡免費足湯、參拜玉作湯神社。<span class="cite-tag">[cite: 190, 191, 192]</span></p>
+                <h3>♨️ <a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=玉造溫泉" target="_blank" class="map-link">📍 玉造溫泉</a></h3>
+                <p>日本歷史最悠久的「神之湯」，硫酸鹽泉質具絕佳「美肌功效」 <span class="cite">[cite: 192]</span>。沿著玉湯川漫步泡免費足湯，並至玉作湯神社摸許願石 <span class="cite">[cite: 190, 192]</span>。</p>
             </div>
         </section>
 
         <section id="day10" class="tab-content">
             <div class="card">
-                <h2>Day 10 (7/25 土)：眾神之國 - 出雲大社 <span class="cite-tag">[cite: 193]</span></h2>
+                <h2>Day 10 (7/25 土)：眾神之國 - 出雲大社</h2>
+                <div class="hotel-info">
+                    <strong>🏨 住宿：</strong> <a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=ANA Crowne Plaza OKAYAMA" target="_blank" class="map-link">📍 ANA Crowne Plaza OKAYAMA by IHG</a> <span class="cite">[cite: 1, 10]</span>
+                </div>
                 
-                <h3>參拜黃金路線 (御砂交換傳統) <span class="cite-tag">[cite: 195, 198]</span></h3>
+                <h3>⛩️ 參拜黃金路線 (御砂交換傳統)</h3>
                 <ol>
-                    <li>先至 <a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=稻佐之濱" target="_blank" class="map-link">📍 稻佐之濱 (弁天島)</a> 採集乾淨海砂。<span class="cite-tag">[cite: 197]</span></li>
-                    <li>停放車輛於出雲大社旁的「大社大停車場」。<span class="cite-tag">[cite: 200]</span></li>
-                    <li>從正門「勢溜大鳥居」進入，避開參道中線以示敬意。<span class="cite-tag">[cite: 203]</span></li>
-                    <li>參拜 <a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=出雲大社" target="_blank" class="map-link">📍 出雲大社</a> 本殿與神樂殿 (巨大注連繩)。<span class="cite-tag">[cite: 199]</span></li>
-                    <li>至後方「素鵞社」用海砂交換具加持力的「神砂」護身。<span class="cite-tag">[cite: 198, 200]</span></li>
+                    <li>首站務必先至 <a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=稻佐之濱" target="_blank" class="map-link">📍 稻佐之濱</a>（神話中諸神登陸的弁天島海灘），用塑膠袋裝取乾淨海砂 <span class="cite">[cite: 195, 197, 198]</span>。</li>
+                    <li>將車輛停放於出雲大社旁免費且車位最多的「大社大停車場」 <span class="cite">[cite: 200]</span>。</li>
+                    <li>依正統路線從正門「勢溜大鳥居」進入，步入參道時避開中軸線以示對神明的敬意 <span class="cite">[cite: 203]</span>。</li>
+                    <li>參拜 <a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=出雲大社" target="_blank" class="map-link">📍 出雲大社</a> 本殿與擁有巨大注連繩的神樂殿 <span class="cite">[cite: 199, 200]</span>。</li>
+                    <li>最後至後方的「素鵞社」，用稍早採集的海砂交換具加倍庇佑能量的「神砂」護身 <span class="cite">[cite: 198, 200]</span>。</li>
                 </ol>
 
-                <h3>出雲美食：神門通與蕎麥麵 <span class="cite-tag">[cite: 204, 206]</span></h3>
-                <p>神門通聚集了在地美食。<span class="cite-tag">[cite: 205]</span> 吃法分為「割子蕎麥麵(冷)」與「釜揚蕎麥麵(熱)」。<span class="cite-tag">[cite: 212, 213, 214]</span></p>
+                <h3>🍜 出雲美食：神門通與蕎麥麵</h3>
+                <p>神門通聚集了在地美食與伴手禮 <span class="cite">[cite: 205]</span>。出雲蕎麥麵吃法分為盛裝在三層漆器中的「割子蕎麥麵(冷)」，以及連同煮麵湯端上的「釜揚蕎麥麵(熱)」 <span class="cite">[cite: 213, 214]</span>。</p>
                 <ul>
-                    <li><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=蕎麥處 田中屋" target="_blank" class="map-link">📍 田中屋</a>：正門前超人氣名店，三色割子。<span class="cite-tag">[cite: 207]</span></li>
-                    <li><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=荒木屋" target="_blank" class="map-link">📍 荒木屋</a>：230年最古老名店，曾登《孤獨的美食家》。<span class="cite-tag">[cite: 208]</span></li>
-                    <li><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=出雲蕎麥 かねや" target="_blank" class="map-link">📍 かねや</a>：實力派老店，淡味醬油柴魚湯頭。<span class="cite-tag">[cite: 209]</span></li>
-                    <li><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=一福" target="_blank" class="map-link">📍 一福</a>：以酥脆舞菇天婦羅聞名。<span class="cite-tag">[cite: 210]</span></li>
-                    <li><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=羽根屋" target="_blank" class="map-link">📍 羽根屋 本店</a>：曾作為「獻上蕎麥」供奉天皇的頂級名店。<span class="cite-tag">[cite: 211]</span></li>
+                    <li><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=田中屋 出雲" target="_blank" class="map-link">📍 蕎麥處 田中屋</a>：正門鳥居前超人氣排隊名店，必點三色割子 <span class="cite">[cite: 207]</span>。</li>
+                    <li><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=荒木屋 出雲" target="_blank" class="map-link">📍 荒木屋</a>：全出雲最古老（230年以上），曾登《孤獨的美食家》 <span class="cite">[cite: 208]</span>。</li>
+                    <li><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=かねや 出雲" target="_blank" class="map-link">📍 出雲蕎麥 かねや</a>：巷弄實力派老店，淡味醬油與柴魚熬製湯頭極佳 <span class="cite">[cite: 209]</span>。</li>
+                    <li><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=一福 出雲" target="_blank" class="map-link">📍 奧出雲蕎麥處 一福</a>：以酥脆的舞菇天婦羅聞名 <span class="cite">[cite: 210]</span>。</li>
+                    <li><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=羽根屋 出雲" target="_blank" class="map-link">📍 羽根屋 本店</a>：曾作為「獻上蕎麥」供奉給天皇的頂級名店 <span class="cite">[cite: 211]</span>。</li>
                 </ul>
             </div>
         </section>
 
         <section id="day11" class="tab-content">
             <div class="card">
-                <h2>Day 11 (7/26 日)：白壁與烏城 - 岡山/倉敷 <span class="cite-tag">[cite: 218]</span></h2>
+                <h2>Day 11 (7/26 日)：白壁與烏城 - 岡山/倉敷</h2>
+                <div class="hotel-info">
+                    <strong>🏨 住宿：</strong> <a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=ANA Crowne Plaza OKAYAMA" target="_blank" class="map-link">📍 ANA Crowne Plaza OKAYAMA by IHG</a> <span class="cite">[cite: 1, 11]</span>
+                </div>
                 
-                <h3><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=倉敷美觀地區" target="_blank" class="map-link">📍 倉敷美觀地區</a> <span class="cite-tag">[cite: 219, 243]</span></h3>
-                <p>漫步於垂柳運河與江戶時代白壁土藏交織的詩意風景，車可停倉敷市中央停車場。<span class="cite-tag">[cite: 219]</span></p>
+                <h3>🏯 <a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=倉敷美觀地區" target="_blank" class="map-link">📍 倉敷美觀地區</a></h3>
+                <p>漫步於垂柳運河與江戶時代白壁土藏交織的詩意風景，車可停 24 小時營業的倉敷市中央停車場（每 30 分鐘 100 日圓） <span class="cite">[cite: 219, 243]</span>。</p>
                 
-                <h3><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=三井 Outlet Park 倉敷" target="_blank" class="map-link">📍 三井 Outlet Park 倉敷</a> <span class="cite-tag">[cite: 220, 221]</span></h3>
+                <h3>🛍️ <a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=三井 Outlet Park 倉敷" target="_blank" class="map-link">📍 三井 Outlet Park 倉敷</a></h3>
                 <ul>
-                    <li>廚具：Le Creuset、T-fal (半價特惠)。<span class="cite-tag">[cite: 222, 223, 224]</span></li>
-                    <li>服飾/機能：BEAMS, Urban Research (低至2折), Columbia。<span class="cite-tag">[cite: 225, 226, 227]</span></li>
-                    <li>藥妝甜點：松本清 (免稅+折價券)、GODIVA (賞味期近享3~5折)。<span class="cite-tag">[cite: 228, 229, 230]</span></li>
-                    <li>伴手禮：連通商場 Ario 倉敷 1F <a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=天滿屋 Happy's 食品館" target="_blank" class="map-link">📍 天滿屋</a> 可買齊吉備糰子、群雀餅並現場退稅。<span class="cite-tag">[cite: 231, 232, 233]</span></li>
+                    <li><strong>廚具：</strong>Le Creuset 鑄鐵鍋常有 5 折或限定色特惠 <span class="cite">[cite: 223]</span>；T-fal 多件組不沾鍋極其划算 <span class="cite">[cite: 224]</span>。</li>
+                    <li><strong>服飾機能：</strong>BEAMS, Urban Research 花車區低至 2 折 <span class="cite">[cite: 226]</span>；Columbia 帆布休閒鞋耐磨好穿 <span class="cite">[cite: 227]</span>。</li>
+                    <li><strong>藥妝甜點：</strong>松本清免稅外常有折價券 <span class="cite">[cite: 229]</span>；GODIVA 賞味期近的禮盒常下殺 3~5 折 <span class="cite">[cite: 230]</span>。</li>
+                    <li><strong>一站式伴手禮：</strong>若不想在老街提重物，可至連通商場 Ario 倉敷 1 樓的 <a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=天滿屋 Happy's 食品館" target="_blank" class="map-link">📍 天滿屋</a> 買齊吉備糰子、群雀餅並現場退稅 <span class="cite">[cite: 232, 233]</span>。</li>
                 </ul>
 
-                <h3>備案：<a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=岡山城" target="_blank" class="map-link">📍 岡山城</a> (烏城) <span class="cite-tag">[cite: 234, 235]</span></h3>
-                <p>免費和服體驗、國家重要文化財「月見櫓」。無障礙注意：輪椅僅能搭電梯至4樓，頂樓展望台需步行。<span class="cite-tag">[cite: 236, 237, 238, 239, 240, 241, 242]</span></p>
+                <h3>🏯 備案：<a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=岡山城" target="_blank" class="map-link">📍 岡山城</a> (烏城)</h3>
+                <p>體驗免費和服試穿，參觀國家重要文化財「月見櫓」 <span class="cite">[cite: 236, 238]</span>。無障礙注意：前往天守閣的戶外路徑皆有急陡石階，需多人協助搬運 <span class="cite">[cite: 241]</span>；館內電梯僅抵達 4 樓，頂樓展望台需步行 <span class="cite">[cite: 241]</span>。</p>
             </div>
         </section>
 
         <section id="day12" class="tab-content">
             <div class="card">
-                <h2>Day 12 (7/27 月)：神戶港灣與和牛饗宴 <span class="cite-tag">[cite: 244]</span></h2>
+                <h2>Day 12 (7/27 月)：神戶港灣與和牛饗宴</h2>
+                <div class="hotel-info">
+                    <strong>🏨 住宿：</strong> <a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=Kobe Luminous Hotel Sannomiya" target="_blank" class="map-link">📍 Kobe Luminous Hotel Sannomiya</a> <span class="cite">[cite: 1, 12]</span>
+                </div>
                 
-                <h3>逛街與夜景：神戶臨海樂園 <span class="cite-tag">[cite: 248, 249]</span></h3>
+                <h3>🌃 逛街與夜景：神戶臨海樂園</h3>
                 <ul>
-                    <li><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=生田神社" target="_blank" class="map-link">📍 生田神社</a>：神戶代表性古老神社。<span class="cite-tag">[cite: 245]</span></li>
-                    <li><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=MOSAIC 馬賽克廣場" target="_blank" class="map-link">📍 MOSAIC 馬賽克廣場</a>：歐風建築，買神戶 Frantz 布丁、搭乘彩虹摩天輪賞夜景。<span class="cite-tag">[cite: 251, 252, 253, 263, 264]</span></li>
-                    <li><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=umie 購物中心" target="_blank" class="map-link">📍 umie 購物中心</a>：有超大型 UNIQLO、AEON Style 超市、Seria 百圓店。<span class="cite-tag">[cite: 254, 255, 256, 257, 258, 259, 260, 261, 262]</span></li>
+                    <li><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=生田神社" target="_blank" class="map-link">📍 生田神社</a>：神戶最具代表性的古老神社 <span class="cite">[cite: 245]</span>。</li>
+                    <li><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=MOSAIC 馬賽克廣場" target="_blank" class="map-link">📍 MOSAIC 馬賽克廣場</a>：充滿歐風的建築，推薦購買神戶 Frantz 魔法之壺布丁，搭乘彩虹摩天輪欣賞神戶港千萬美元夜景 <span class="cite">[cite: 249, 251, 252, 264]</span>。</li>
+                    <li><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=umie 購物中心" target="_blank" class="map-link">📍 umie 購物中心</a>：擁有日本最大級別的 UNIQLO，地下 1 樓有營業至 21:30 的 AEON Style 超市與質感的 Seria 百圓店 <span class="cite">[cite: 254, 256, 258, 262]</span>。</li>
                 </ul>
 
-                <h3>神戶牛排推薦 (建議選午間套餐更超值) <span class="cite-tag">[cite: 265, 266]</span></h3>
+                <h3>🥩 神戶牛排推薦 (強烈建議午間套餐)</h3>
+                <p>午間套餐能以 $3,000 至 $8,000 日圓的親民價格，享受入口即化的極致 A5 神戶牛 <span class="cite">[cite: 266]</span>：</p>
                 <ul>
-                    <li><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=神戶牛排 Ishida" target="_blank" class="map-link">📍 神戶牛排Ishida (石田屋)</a>：官方認證。<span class="cite-tag">[cite: 269]</span></li>
-                    <li><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=MOURIYA" target="_blank" class="map-link">📍 MOURIYA</a>：享譽盛名的百年老店。<span class="cite-tag">[cite: 270]</span></li>
-                    <li><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=Steakland Kobe" target="_blank" class="map-link">📍 Steak Land Kobe</a>。<span class="cite-tag">[cite: 271]</span></li>
-                    <li><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=牛屋Tanpei" target="_blank" class="map-link">📍 牛屋Tanpei</a>：極品厚切牛舌專門店。<span class="cite-tag">[cite: 276, 277, 278, 279]</span></li>
-                    <li><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=板前燒肉一牛" target="_blank" class="map-link">📍 板前燒肉一牛</a>：供應極稀有母黑毛和牛厚切牛舌。<span class="cite-tag">[cite: 283, 284, 285, 286]</span></li>
+                    <li><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=神戶牛排Ishida" target="_blank" class="map-link">📍 神戶牛排Ishida (石田屋)</a>：官方推進協議會認證 <span class="cite">[cite: 266, 269, 280]</span>。</li>
+                    <li><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=MOURIYA 神戶" target="_blank" class="map-link">📍 MOURIYA</a>：享譽盛名的百年老店 <span class="cite">[cite: 266, 270]</span>。</li>
+                    <li><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=Steak Land Kobe" target="_blank" class="map-link">📍 Steak Land Kobe</a>：極受歡迎的熱門餐廳 <span class="cite">[cite: 266, 271]</span>。</li>
+                    <li><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=牛屋Tanpei" target="_blank" class="map-link">📍 牛屋Tanpei (牛やたん平)</a>：歷史悠久的牛舌專門店，供應極品厚切牛舌 <span class="cite">[cite: 276, 277]</span>。</li>
+                    <li><a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=板前燒肉一牛 三宮" target="_blank" class="map-link">📍 板前燒肉一牛</a>：除了神戶牛外，也供應極稀有的母黑毛和牛厚切牛舌 <span class="cite">[cite: 283, 284]</span>。</li>
                 </ul>
             </div>
         </section>
 
         <section id="day13" class="tab-content">
             <div class="card">
-                <h2>Day 13 (7/28 火)：賦歸 <span class="cite-tag">[cite: 1]</span></h2>
+                <h2>Day 13 (7/28 火)：賦歸</h2>
                 <ul>
-                    <li>上午：神戶市區最後巡禮。</li>
-                    <li>14:00：返回 <a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=關西國際機場" target="_blank" class="map-link">📍 關西國際機場 (KIX)</a> 還車。</li>
-                    <li>16:15：搭乘 CX565 班機返回 TPE。滿載回憶平安到家！</li>
+                    <li>上午：神戶市區最後巡禮 <span class="cite">[cite: 1]</span>。</li>
+                    <li>14:00：返回 <a href="https://www.google.com/maps/search/?api=1&query=地點名稱?q=關西國際機場" target="_blank" class="map-link">📍 關西國際機場 (KIX)</a> 辦理還車手續 <span class="cite">[cite: 1, 13]</span>。</li>
+                    <li>16:15：搭乘 CX565 班機返回 TPE <span class="cite">[cite: 1, 13]</span>。滿載神話與美景的回憶，平安到家！</li>
                 </ul>
             </div>
         </section>
     </main>
 
     <script>
-        // 分頁切換邏輯
         function openTab(evt, tabId) {
-            // 隱藏所有分頁內容
             var tabContents = document.getElementsByClassName("tab-content");
-            for (var i = 0; i < tabContents.length; i++) {
-                tabContents[i].classList.remove("active");
-            }
-            // 移除所有標籤的 active 狀態
+            for (var i = 0; i < tabContents.length; i++) { tabContents[i].classList.remove("active"); }
+            
             var tabBtns = document.getElementsByClassName("tab-btn");
-            for (var i = 0; i < tabBtns.length; i++) {
-                tabBtns[i].classList.remove("active");
-            }
-            // 顯示目標分頁並將點擊的按鈕設為 active
+            for (var i = 0; i < tabBtns.length; i++) { tabBtns[i].classList.remove("active"); }
+            
             document.getElementById(tabId).classList.add("active");
             evt.currentTarget.classList.add("active");
-            
-            // 自動將選單滾動至可見範圍 (提升手機端體驗)
             evt.currentTarget.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
         }
     </script>
