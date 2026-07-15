@@ -1,0 +1,373 @@
+/* =========================================================
+   伊勢・琵琶湖・出雲 十三日大環線　style.css
+   Design language: 御朱印帳 (goshuin stamp book) — every day
+   of the journey is a stamp collected in a travelogue.
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700;800&family=Zen+Maru+Gothic:wght@400;500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap');
+
+:root{
+  /* ---- palette ---- */
+  --paper:        #FAF6EE;
+  --paper-alt:    #FFFFFF;
+  --sky:          #C3E1E9;
+  --sky-soft:     #E4F1F3;
+  --lake:         #2E5F7A;
+  --lake-deep:    #1E3F52;
+  --forest:       #5E7F5E;
+  --forest-deep:  #3E5A40;
+  --beige:        #EFE3CC;
+  --warmgray:     #8C8275;
+  --ink:          #2B2723;
+  --ink-soft:     #5C574E;
+  --shrine-red:   #B23A2E;
+  --shrine-red-deep:#8E2C22;
+  --torii-orange: #E08A46;
+  --line:         #E4D8BF;
+  --shadow:       0 10px 30px -12px rgba(43,39,35,.18);
+  --shadow-soft:  0 4px 16px -6px rgba(43,39,35,.12);
+  --radius-lg: 28px;
+  --radius-md: 18px;
+  --radius-sm: 12px;
+  --maxw: 1180px;
+}
+
+*,*::before,*::after{ box-sizing:border-box; }
+html{ scroll-behavior:smooth; scroll-padding-top: 84px; }
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:'Zen Maru Gothic','Noto Sans TC',sans-serif;
+  line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior:auto; }
+  *{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; }
+}
+
+h1,h2,h3,h4{ font-family:'Shippori Mincho','Noto Sans TC',serif; color:var(--lake-deep); margin:0 0 .4em; letter-spacing:.02em; }
+a{ color:inherit; }
+img{ max-width:100%; display:block; }
+button{ font-family:inherit; }
+
+.container{ max-width:var(--maxw); margin:0 auto; padding:0 24px; }
+.section{ padding:88px 0; position:relative; }
+.section-head{ text-align:center; max-width:640px; margin:0 auto 48px; }
+.section-eyebrow{
+  display:inline-flex; align-items:center; gap:8px;
+  font-size:13px; letter-spacing:.18em; color:var(--forest-deep);
+  text-transform:uppercase; font-weight:700; margin-bottom:10px;
+}
+.section-title{ font-size:clamp(28px,4vw,40px); margin-bottom:8px; }
+.section-sub{ color:var(--ink-soft); font-size:16px; }
+
+/* reveal-on-scroll */
+.reveal{ opacity:0; transform:translateY(24px); transition:opacity .7s ease, transform .7s ease; }
+.reveal.is-visible{ opacity:1; transform:translateY(0); }
+
+/* =========================================================
+   NAV
+   ========================================================= */
+.navbar{
+  position:sticky; top:0; z-index:200;
+  background:rgba(250,246,238,.88);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.nav-inner{
+  max-width:var(--maxw); margin:0 auto; padding:0 24px;
+  display:flex; align-items:center; justify-content:space-between;
+  height:66px;
+}
+.nav-brand{ display:flex; align-items:center; gap:10px; font-family:'Shippori Mincho',serif; font-weight:700; font-size:19px; color:var(--lake-deep); text-decoration:none; white-space:nowrap; }
+.nav-brand .stamp-mini{
+  width:30px; height:30px; border-radius:8px; border:2px solid var(--shrine-red);
+  color:var(--shrine-red); display:flex; align-items:center; justify-content:center;
+  font-size:13px; font-weight:900; transform:rotate(-6deg);
+}
+.nav-links{ display:flex; align-items:center; gap:2px; list-style:none; margin:0; padding:0; overflow-x:auto; scrollbar-width:none; }
+.nav-links::-webkit-scrollbar{ display:none; }
+.nav-links a{
+  display:inline-block; padding:8px 12px; border-radius:999px; text-decoration:none;
+  font-size:14px; color:var(--ink-soft); white-space:nowrap; font-weight:500;
+  transition:background .2s, color .2s;
+}
+.nav-links a:hover{ background:var(--sky-soft); color:var(--lake-deep); }
+.nav-toggle{ display:none; background:none; border:none; font-size:22px; color:var(--lake-deep); cursor:pointer; padding:8px; }
+
+@media (max-width:960px){
+  .nav-links{
+    position:fixed; top:66px; left:0; right:0; bottom:0; height:auto;
+    background:var(--paper); flex-direction:column; align-items:stretch;
+    padding:14px 20px 40px; gap:4px; overflow-y:auto;
+    transform:translateX(100%); transition:transform .35s ease;
+  }
+  .nav-links.open{ transform:translateX(0); }
+  .nav-links a{ padding:12px 14px; font-size:16px; border-bottom:1px solid var(--line); border-radius:8px; }
+  .nav-toggle{ display:block; }
+}
+
+/* =========================================================
+   HERO
+   ========================================================= */
+.hero{
+  position:relative; padding:120px 24px 100px; text-align:center;
+  background:
+    radial-gradient(ellipse at 20% -10%, rgba(195,225,233,.9), transparent 55%),
+    radial-gradient(ellipse at 90% 0%, rgba(239,227,204,.8), transparent 50%),
+    linear-gradient(180deg, #FDFBF6 0%, var(--paper) 100%);
+  overflow:hidden;
+}
+.hero-torii{ position:absolute; opacity:.14; pointer-events:none; }
+.hero-torii.t1{ top:8%; left:4%; width:120px; transform:rotate(-6deg); }
+.hero-torii.t2{ bottom:6%; right:6%; width:160px; transform:rotate(5deg); }
+.hero-bears{ position:absolute; font-size:34px; opacity:.9; animation:float 6s ease-in-out infinite; }
+.hero-bears.b1{ top:14%; left:10%; animation-delay:0s; }
+.hero-bears.b2{ top:22%; right:12%; animation-delay:1.2s; font-size:26px; }
+.hero-bears.b3{ bottom:16%; left:16%; animation-delay:2s; font-size:22px; }
+@keyframes float{ 0%,100%{ transform:translateY(0);} 50%{ transform:translateY(-14px);} }
+
+.hero-eyebrow{
+  display:inline-flex; gap:10px; align-items:center; font-size:14px; letter-spacing:.24em;
+  color:var(--shrine-red); font-weight:700; text-transform:uppercase; margin-bottom:22px;
+}
+.hero-title{
+  font-size:clamp(34px,6vw,64px); line-height:1.25; margin-bottom:18px; color:var(--lake-deep);
+}
+.hero-title .accent{ color:var(--shrine-red); }
+.hero-slogan{
+  font-size:clamp(16px,2vw,20px); color:var(--ink-soft); max-width:620px; margin:0 auto 30px;
+}
+.hero-meta{
+  display:flex; flex-wrap:wrap; justify-content:center; gap:14px; margin-bottom:40px;
+}
+.hero-chip{
+  display:flex; align-items:center; gap:8px; background:var(--paper-alt); border:1px solid var(--line);
+  padding:10px 18px; border-radius:999px; font-size:14px; box-shadow:var(--shadow-soft);
+}
+.hero-chip b{ color:var(--lake-deep); }
+.hero-cta{ display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+.btn{
+  display:inline-flex; align-items:center; gap:8px; padding:14px 28px; border-radius:999px;
+  text-decoration:none; font-weight:700; font-size:15px; border:2px solid transparent; cursor:pointer;
+  transition:transform .2s ease, box-shadow .2s ease, background .2s ease;
+}
+.btn:hover{ transform:translateY(-2px); }
+.btn-primary{ background:var(--shrine-red); color:#fff; box-shadow:0 8px 20px -8px rgba(178,58,46,.6); }
+.btn-primary:hover{ background:var(--shrine-red-deep); }
+.btn-ghost{ background:transparent; border-color:var(--lake); color:var(--lake-deep); }
+.btn-ghost:hover{ background:var(--sky-soft); }
+
+/* stamp progress strip (signature element) */
+.stamp-strip{
+  display:flex; justify-content:center; flex-wrap:wrap; gap:8px; margin-top:46px;
+}
+.stamp-dot{
+  width:38px; height:38px; border-radius:10px; border:2px solid var(--shrine-red);
+  color:var(--shrine-red); display:flex; align-items:center; justify-content:center;
+  font-size:12px; font-weight:900; font-family:'Shippori Mincho',serif; background:#fff;
+  transform:rotate(calc((var(--i, 0) * 1deg) - 6deg));
+  cursor:pointer; text-decoration:none; transition:transform .2s, background .2s, color .2s;
+  box-shadow:var(--shadow-soft);
+}
+.stamp-dot:hover{ background:var(--shrine-red); color:#fff; transform:scale(1.12) rotate(0deg); }
+
+/* =========================================================
+   MAP SUMMARY
+   ========================================================= */
+.map-section{ background:var(--paper-alt); }
+.map-wrap{
+  position:relative; border-radius:var(--radius-lg); overflow:hidden;
+  background:linear-gradient(180deg,var(--sky-soft),var(--paper-alt) 70%);
+  border:1px solid var(--line); box-shadow:var(--shadow);
+  padding:20px;
+}
+.route-image{ width:100%; border-radius: var(--radius-md); display:block; box-shadow:var(--shadow-soft); }
+
+.map-legend{ display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:22px; }
+.map-legend a{
+  display:flex; align-items:center; gap:6px; text-decoration:none; font-size:13px;
+  background:var(--paper); border:1px solid var(--line); padding:6px 12px; border-radius:999px;
+  color:var(--ink-soft); transition:background .2s,color .2s;
+}
+.map-legend a:hover{ background:var(--beige); color:var(--ink); }
+
+/* =========================================================
+   DAY SECTIONS
+   ========================================================= */
+.day-section{ padding:90px 0; border-bottom:1px dashed var(--line); }
+.day-section:nth-of-type(even){ background:rgba(239,227,204,.35); }
+.day-head{ display:flex; align-items:flex-start; gap:22px; margin-bottom:36px; flex-wrap:wrap; }
+.day-stamp{
+  flex:0 0 auto; width:76px; height:76px; border-radius:16px; border:3px solid var(--shrine-red);
+  color:var(--shrine-red); display:flex; flex-direction:column; align-items:center; justify-content:center;
+  font-family:'Shippori Mincho',serif; font-weight:800; background:#fff; transform:rotate(-4deg);
+  box-shadow:var(--shadow-soft); line-height:1.1;
+}
+.day-stamp .num{ font-size:26px; }
+.day-stamp .label{ font-size:11px; letter-spacing:.05em; }
+.day-titlebox{ flex:1 1 260px; }
+.day-date{ font-size:14px; color:var(--forest-deep); font-weight:700; letter-spacing:.05em; margin-bottom:4px; }
+.day-title{ font-size:clamp(22px,3vw,30px); margin-bottom:6px; }
+.day-route{ font-size:14px; color:var(--ink-soft); display:flex; gap:6px; flex-wrap:wrap; align-items:center; }
+.day-route .seg{ background:var(--sky-soft); padding:3px 10px; border-radius:999px; }
+.day-weather{ flex:0 0 auto; text-align:right; font-size:13px; color:var(--warmgray); }
+
+.day-grid{ display:grid; grid-template-columns: 1.1fr 1.4fr; gap:40px; align-items:start; }
+@media (max-width:900px){ .day-grid{ grid-template-columns:1fr; } }
+
+/* timeline */
+.timeline{ list-style:none; margin:0; padding:0; position:relative; }
+.timeline::before{ content:''; position:absolute; left:9px; top:6px; bottom:6px; width:2px; background:var(--line); }
+.timeline li{ position:relative; padding:0 0 26px 34px; }
+.timeline li:last-child{ padding-bottom:0; }
+.timeline .dot{
+  position:absolute; left:0; top:2px; width:20px; height:20px; border-radius:50%;
+  background:var(--lake); border:3px solid var(--paper-alt); box-shadow:0 0 0 2px var(--lake);
+  display:flex; align-items:center; justify-content:center; font-size:10px;
+}
+.timeline .time{ font-weight:700; color:var(--lake-deep); font-size:14px; margin-right:8px; }
+.timeline .label{ font-size:15px; }
+.timeline .note{ font-size:13px; color:var(--ink-soft); margin-top:2px; }
+
+/* cards */
+.card-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:20px; }
+.card{
+  background:var(--paper-alt); border:1px solid var(--line); border-radius:var(--radius-md);
+  overflow:hidden; box-shadow:var(--shadow-soft); transition:transform .25s ease, box-shadow .25s ease;
+  display:flex; flex-direction:column;
+}
+.card:hover{ transform:translateY(-5px); box-shadow:var(--shadow); }
+.card-photo{
+  height:150px; background:linear-gradient(135deg,var(--sky) 0%, var(--sky-soft) 60%, var(--beige) 100%);
+  display:flex; align-items:center; justify-content:center; font-size:38px; color:var(--lake);
+  position:relative;
+}
+.card-photo .tag{
+  position:absolute; top:10px; left:10px; background:rgba(255,255,255,.85); font-size:11px;
+  padding:3px 9px; border-radius:999px; color:var(--forest-deep); font-weight:700;
+}
+.card-body{ padding:18px 18px 20px; display:flex; flex-direction:column; gap:8px; flex:1; }
+.card-title{ font-family:'Shippori Mincho',serif; font-size:18px; color:var(--lake-deep); font-weight:700; }
+.card-desc{ font-size:14px; color:var(--ink-soft); }
+.card-meta{ font-size:12.5px; color:var(--warmgray); display:flex; flex-direction:column; gap:3px; margin-top:2px; }
+.card-meta span b{ color:var(--ink); }
+.card-tip{
+  font-size:12.5px; background:var(--sky-soft); color:var(--lake-deep); border-radius:8px; padding:8px 10px;
+  margin-top:4px;
+}
+.card-actions{ margin-top:auto; display:flex; gap:8px; flex-wrap:wrap; padding-top:8px; }
+.pill-link{
+  font-size:12.5px; text-decoration:none; padding:7px 12px; border-radius:999px; font-weight:700;
+  display:inline-flex; align-items:center; gap:5px;
+}
+.pill-map{ background:var(--forest); color:#fff; }
+.pill-map:hover{ background:var(--forest-deep); }
+.pill-site{ background:var(--sky-soft); color:var(--lake-deep); }
+.pill-site:hover{ background:var(--sky); }
+
+/* sub group headers within a day (food/shopping/notes) */
+.subgroup{ margin-top:30px; }
+.subgroup-title{ display:flex; align-items:center; gap:8px; font-size:16px; font-weight:700; color:var(--forest-deep); margin-bottom:14px; }
+.note-list{ margin:0; padding-left:0; list-style:none; display:flex; flex-direction:column; gap:10px; }
+.note-list li{
+  background:var(--paper-alt); border:1px solid var(--line); border-radius:var(--radius-sm);
+  padding:12px 16px; font-size:14px; color:var(--ink-soft); display:flex; gap:10px;
+}
+.note-list li .ico{ flex:0 0 auto; }
+
+/* hotel-of-day mini card */
+.hotel-mini{
+  margin-top:26px; display:flex; gap:14px; align-items:flex-start; background:var(--beige);
+  border-radius:var(--radius-md); padding:16px 18px;
+}
+.hotel-mini .ico{ font-size:26px; }
+.hotel-mini h4{ font-size:15px; margin:0 0 4px; color:var(--lake-deep); }
+.hotel-mini p{ margin:0; font-size:13px; color:var(--ink-soft); }
+.hotel-mini a{ font-size:12.5px; color:var(--forest-deep); font-weight:700; text-decoration:none; }
+
+/* =========================================================
+   HOTELS SECTION
+   ========================================================= */
+.hotels-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:22px; }
+.hotel-card{
+  background:var(--paper-alt); border:1px solid var(--line); border-radius:var(--radius-md);
+  padding:22px; box-shadow:var(--shadow-soft); transition:transform .2s ease;
+}
+.hotel-card:hover{ transform:translateY(-4px); }
+.hotel-card .day-tag{
+  display:inline-block; background:var(--sky-soft); color:var(--lake-deep); font-size:12px;
+  font-weight:700; padding:3px 10px; border-radius:999px; margin-bottom:10px;
+}
+.hotel-card h3{ font-size:17px; margin-bottom:6px; }
+.hotel-card .loc{ font-size:13px; color:var(--forest-deep); font-weight:700; margin-bottom:10px; }
+.hotel-card dl{ margin:0; font-size:13px; color:var(--ink-soft); display:grid; grid-template-columns:auto 1fr; gap:4px 10px; }
+.hotel-card dt{ font-weight:700; color:var(--ink); }
+.hotel-card dd{ margin:0; }
+.hotel-card .actions{ margin-top:12px; display:flex; gap:8px; flex-wrap:wrap; }
+
+/* =========================================================
+   TRANSPORT SECTION
+   ========================================================= */
+.transport-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:20px; }
+.transport-card{
+  background:var(--paper-alt); border:1px solid var(--line); border-radius:var(--radius-md);
+  padding:20px; box-shadow:var(--shadow-soft);
+}
+.transport-card .mode{ display:flex; align-items:center; gap:10px; font-weight:700; color:var(--lake-deep); margin-bottom:10px; font-size:15px; }
+.transport-card .mode .ico{ font-size:20px; }
+.transport-card .route{ font-size:14px; margin-bottom:6px; }
+.transport-card .route b{ color:var(--shrine-red); }
+.transport-card .dur{ font-size:12.5px; color:var(--warmgray); margin-bottom:8px; }
+.transport-card .note{ font-size:13px; color:var(--ink-soft); }
+
+/* =========================================================
+   NOTES / ACCORDION
+   ========================================================= */
+.accordion{ max-width:840px; margin:0 auto; display:flex; flex-direction:column; gap:12px; }
+.acc-item{ background:var(--paper-alt); border:1px solid var(--line); border-radius:var(--radius-md); overflow:hidden; }
+.acc-head{
+  width:100%; text-align:left; background:none; border:none; padding:18px 22px; cursor:pointer;
+  display:flex; align-items:center; justify-content:space-between; gap:12px; font-size:16px; font-weight:700;
+  color:var(--lake-deep); font-family:'Shippori Mincho',serif;
+}
+.acc-head .plus{ transition:transform .3s ease; color:var(--shrine-red); font-size:20px; }
+.acc-item.open .acc-head .plus{ transform:rotate(45deg); }
+.acc-body{ max-height:0; overflow:hidden; transition:max-height .35s ease; }
+.acc-body-inner{ padding:0 22px 20px; font-size:14px; color:var(--ink-soft); }
+.acc-body-inner ul{ padding-left:20px; margin:8px 0; }
+.acc-body-inner li{ margin-bottom:6px; }
+.acc-table{ width:100%; border-collapse:collapse; font-size:13px; margin-top:10px; }
+.acc-table th,.acc-table td{ border:1px solid var(--line); padding:8px 10px; text-align:left; }
+.acc-table th{ background:var(--sky-soft); color:var(--lake-deep); }
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+footer{ background:var(--lake-deep); color:#EFE9DC; padding:60px 0 30px; }
+.footer-stats{ display:flex; flex-wrap:wrap; justify-content:center; gap:40px; margin-bottom:40px; text-align:center; }
+.footer-stats .stat b{ display:block; font-family:'Shippori Mincho',serif; font-size:34px; color:#fff; }
+.footer-stats .stat span{ font-size:13px; opacity:.75; }
+.footer-nav{ display:flex; flex-wrap:wrap; justify-content:center; gap:18px; margin-bottom:30px; }
+.footer-nav a{ color:#D9E4E8; text-decoration:none; font-size:13px; opacity:.85; }
+.footer-nav a:hover{ opacity:1; text-decoration:underline; }
+.footer-bottom{ text-align:center; font-size:12px; opacity:.6; border-top:1px solid rgba(255,255,255,.12); padding-top:20px; }
+
+/* back to top */
+.to-top{
+  position:fixed; right:22px; bottom:22px; width:46px; height:46px; border-radius:50%;
+  background:var(--shrine-red); color:#fff; border:none; font-size:18px; cursor:pointer; box-shadow:var(--shadow);
+  display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; transition:opacity .3s, transform .2s;
+  z-index:150;
+}
+.to-top.show{ opacity:1; pointer-events:auto; }
+.to-top:hover{ transform:translateY(-3px); }
+
+@media (max-width:600px){
+  .section{ padding:60px 0; }
+  .day-section{ padding:60px 0; }
+  .hero{ padding:90px 20px 70px; }
+}
